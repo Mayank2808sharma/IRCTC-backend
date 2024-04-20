@@ -1,11 +1,11 @@
 const sequelize = require('../config/database');
 const Booking = require('../models/booking');
-const Train = require('../models/train'); // Assuming Train is defined in a separate file
+const Train = require('../models/train'); 
 const User = require("../models/user")
-// Book a seat on a train
+
 const bookSeat = async (req, res) => {
     const { train_id } = req.body;
-    const userId = req.user.id; // This assumes the user object has an 'id' property
+    const userId = req.user.id; 
 
     if (!userId) {
         return res.status(400).json({ message: "User ID is missing" });
@@ -16,7 +16,7 @@ const bookSeat = async (req, res) => {
     try {
         const train = await Train.findByPk(train_id, { transaction: t });
         if (!train) {
-            await t.rollback(); // Roll back the transaction as a precaution
+            await t.rollback(); 
             return res.status(404).json({ message: 'Train not found' });
         }
         if (train.available_seats > 0) {

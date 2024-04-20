@@ -13,7 +13,7 @@ const Booking = sequelize.define('Booking', {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
     },
-    UserId: {  // Explicitly define the foreign key for User
+    UserId: { 
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -21,7 +21,7 @@ const Booking = sequelize.define('Booking', {
             key: 'id'
         }
     },
-    TrainId: {  // Explicitly define the foreign key for Train
+    TrainId: {  
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

@@ -1,7 +1,7 @@
 const Sequelize  = require('sequelize');
 const Train = require('../models/train');
 
-// Admin: Add a new train
+
 const addTrain = async (req, res) => {
     try {
         const { train_name, source, destination, total_seats } = req.body;
@@ -19,7 +19,7 @@ const addTrain = async (req, res) => {
     }
 };
 
-// Get trains with availability between two stations
+
 const getTrains = async (req, res) => {
     try {
         const { source, destination } = req.query;
