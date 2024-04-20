@@ -17,8 +17,8 @@ To run this project locally, you will need Node.js and PostgreSQL installed on y
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/mayank2808sharma/railway-management-system
-cd railway-management-system
+git clone https://github.com/mayank2808sharma/IRCTC-backend
+cd IRCTC-backend
 ```
 **2. Install Dependencies**
 ```bash
