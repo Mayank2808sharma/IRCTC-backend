@@ -3,6 +3,8 @@
 ## Project Overview
 Built using Node.js, Express, and Sequelize, this system supports functionalities for both regular users and administrators, ensuring efficient handling of train schedules, seat availability, and user bookings.
 
+## Youtube video : [↗️](https://youtu.be/deWxKmGd67A)
+
 ## Features
 - **User Authentication**: Secure login and registration functionality for users.
 - **Train Management**: Administrators can add trains and update seating capacities.
