@@ -38,7 +38,32 @@ const getTrains = async (req, res) => {
     }
 };
 
+const updateTrainSeats = async (req, res) => {
+    const { trainId } = req.params;
+    const { total_seats } = req.body;
+
+    if (!total_seats || total_seats < 0) {
+        return res.status(400).json({ message: 'Invalid total seats provided.' });
+    }
+
+    try {
+        const train = await Train.findByPk(trainId);
+        if (!train) {
+            return res.status(404).json({ message: 'Train not found.' });
+        }
+
+        train.total_seats += total_seats;
+        train.available_seats +=total_seats;
+        await train.save();
+        res.status(200).json({ message: 'Total seats updated successfully.', train });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 module.exports = {
     addTrain,
-    getTrains
+    getTrains,
+    updateTrainSeats
 };
