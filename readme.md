@@ -1,4 +1,4 @@
-# Railway Management System
+# IRCTC Backend
 
 ## Project Overview
 Built using Node.js, Express, and Sequelize, this system supports functionalities for both regular users and administrators, ensuring efficient handling of train schedules, seat availability, and user bookings.
