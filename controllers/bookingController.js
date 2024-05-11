@@ -40,6 +40,48 @@ const bookSeat = async (req, res) => {
     }
 };
 
+const cancelBooking = async (req, res) => {
+    const t = await sequelize.transaction();
+    const UserId = req.user.id
+    if(!UserId){
+        res.status(404).json({message : "User id is missing"})
+    }
+    try {
+        const { booking_id } = req.query;
+        const booking = await Booking.findByPk(booking_id, { transaction: t });
+        
+        //if booking is not present then send response
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+        //if user id of booking is not equal to user trying to delete booking 
+        if(booking.UserId != UserId){
+            return res.status(403).send("forbidden")
+        }
+        //get train id for changing status of available seats
+        const trainId = booking.TrainId;
+
+        //delete the booking
+        const deleted = await Booking.destroy({where : {id : booking_id, UserId : UserId}});
+
+        //change available seats details
+        if(deleted) {
+            const train = await Train.findByPk(trainId, { transaction: t });
+        
+            //modify available seats 
+            train.available_seats += 1;
+            await train.save({ transaction: t });
+
+            await t.commit();
+            
+            res.json({message : "Booking cancelled"})
+        }
+    } catch (error) {
+        
+        res.status(500).json({ message: error.message });
+    }
+}
+
 
 const getBookingDetails = async (req, res) => {
     try {
@@ -66,5 +108,6 @@ const getBookingDetails = async (req, res) => {
 
 module.exports = {
     bookSeat,
-    getBookingDetails
+    getBookingDetails,
+    cancelBooking
 };
