@@ -15,7 +15,7 @@ app.use(trainRoutes);
 
 // Response Handler Middleware Which will send response to the client in the form of JSON Object 
 
-server.use((obj, req, res, next) => {
+app.use((obj, req, res, next) => {
     const statuscode = obj.status || 500;
     const message = obj.message || "Something went wrong";
     return res.status(statuscode).json({
