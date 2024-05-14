@@ -66,12 +66,14 @@ This will start the server on `http://localhost:3000`.
 * **GET /trains/availability** - Fetch available trains
 `Query: source=CityA&destination=CityB`
 * **POST /book** - Book ticket
-`Body: { "train_id": 1 }`
+`Body: { "train_id":1, "no_of_seats":3 }`
+
 * **GET /booking/details** - Get specific booking details
 `Query: booking_id=1`
 
 ## Admin Endpoints
 * **POST /admin/train** - Add a new train
-`Body: { "train_name": "Express", "source": "CityA", "destination": "CityB", "total_seats": 100 }`
+`Body: { "train_name":"Train_1", "source":"Chennai", "destination" : "Coimbatore", "compartments" : [{ "name":"T-1-C-1", "total_seats":10 },{ "name":"T-1-C-2", "total_seats":5 }]}`
+
 * **PATCH /admin/train/:trainId** - Increase number of total seats
-`Body: { "add_seats": 120 }`
+`Body: { "additionalCompartments":[{ "name":"T-1-C-3", "total_seats":10 },{ "name":"T-1-C-4", "total_seats":15 }] }`
