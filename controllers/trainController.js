@@ -1,21 +1,32 @@
 const Sequelize  = require('sequelize');
 const Train = require('../models/train');
 
+const trainSchema = z.object({
+    train_name: z.string().min(3).max(50).regex(/^[a-zA-Z0-9\s]+$/, 'Train name can only contain letters, numbers, and spaces'),
+    source: z.string().min(3).max(50).regex(/^[a-zA-Z\s]+$/, 'Source can only contain letters and spaces'),
+    destination: z.string().min(3).max(50).regex(/^[a-zA-Z\s]+$/, 'Destination can only contain letters and spaces'),
+    total_seats: z.number().int().positive().min(10, 'Minimum total seats is 10'),
+    available_seats: z.number().int().positive().max(z.func().arg(z.object({ total_seats: z.number().int() })).return(z.number().int()), 'Available seats cannot exceed total seats')
+});
+
 
 const addTrain = async (req, res) => {
     try {
-        const { train_name, source, destination, total_seats } = req.body;
+        const validatedData = trainSchema.parse(req.body);
         const train = await Train.create({
-            train_name: train_name.toLowerCase(), 
-            source: source.toLowerCase(),         
-            destination: destination.toLowerCase(), 
-            total_seats,
-            available_seats: total_seats
-
+            train_name: validatedData.train_name.toLowerCase(),
+            source: validatedData.source.toLowerCase(),
+            destination: validatedData.destination.toLowerCase(),
+            total_seats: validatedData.total_seats,
+            available_seats: validatedData.available_seats
         });
         res.status(201).json(train);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        if (error instanceof z.ZodError) {
+            res.status(400).send(error.errors);
+        } else {
+            res.status(500).json({ message: error.message });
+        }
     }
 };
 
