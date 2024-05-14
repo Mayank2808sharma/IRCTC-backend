@@ -49,14 +49,12 @@ const bookSeat = async (req, res) => {
                 }
             }
         }
-        console.log(bookingDetail.length ,"==", no_of_seats)
+    
+        let book;
         if (bookingDetail.length != no_of_seats || !bookingDetail.length > 0) {
             throw new Error("Seat not available");
         } else {
-            console.log("Inside");
             await sequelize.transaction(async (t) => {
-
-                
                 await Promise.all(bookingDetail.map(async (sampleTicket) => {
                     await Seat.update(
                         { status: false },
@@ -66,18 +64,21 @@ const bookSeat = async (req, res) => {
                             },
                         },
                         { transaction: t });
-                        [""]
-                    await Booking.create({
+                    [""]
+
+                    book = await Booking.create({
                         UserId: userId,
                         TrainId: sampleTicket.train_id,
                         SeatId: sampleTicket.seat_id
                     }, { transaction: t });
                 }));
             });
+
         }
         await t.commit();
 
-        res.status(201).json(bookingDetail)
+
+        res.status(201).json({ book, bookingDetail })
 
     } catch (error) {
         // await t.rollback();
@@ -91,19 +92,34 @@ const getBookingDetails = async (req, res) => {
     try {
         const { booking_id } = req.query;
         const booking = await Booking.findByPk(booking_id, {
-            include: [Train, User]
+            include: [Train, User, Seat],
         });
+
+
+
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found' });
         }
+        let seatNos = [];
+        if (booking.Seat) {
+            Object.values(booking.Seat).forEach(seat => {
+                if(seat.seat_no)
+                    seatNos.push(seat?.seat_no);
+            });
+        }
+
+
         const data = {
             bookingId: booking.id,
             bookingTime: booking.booking_time,
             trainName: booking.Train.train_name,
             source: booking.Train.source,
             destination: booking.Train.destination,
-            username: booking.User.username
+            username: booking.User.username,
+            seatNos:seatNos
+
         }
+
         res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
