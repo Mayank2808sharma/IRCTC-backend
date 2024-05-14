@@ -3,7 +3,7 @@ const User = require('./models/user');
 const Train = require('./models/train');
 const Booking = require('./models/booking');
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: false })
     .then(() => {
         console.log("Tables have been successfully created.");
     })
