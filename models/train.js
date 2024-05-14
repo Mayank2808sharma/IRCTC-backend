@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Compartment = require('./compartment')
+
 const Train = sequelize.define('Train', {
     id: {
         type: DataTypes.INTEGER,
@@ -18,14 +20,16 @@ const Train = sequelize.define('Train', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    total_seats: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    available_seats: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    // total_seats: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false
+    // },
+    // available_seats: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false
+    // }
 });
+
+Train.hasMany(Compartment);
 
 module.exports = Train;
