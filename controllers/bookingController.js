@@ -43,8 +43,7 @@ const bookSeat = async (req, res) => {
             console.log('Email sent');
            }
            catch(error){
-            console.log('Error sending email');
-            console.log(error);
+            console.log('Error sending email',error);
            }
             res.status(201).json(booking);
         } else {
