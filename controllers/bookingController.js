@@ -16,6 +16,7 @@ const bookSeat = async (req, res) => {
     try {
         const train = await Train.findByPk(train_id, { transaction: t });
         if (!train) {
+            console.log('Could not find train');
             await t.rollback(); 
             return res.status(404).json({ message: 'Train not found' });
         }
@@ -28,7 +29,9 @@ const bookSeat = async (req, res) => {
                 TrainId: train_id
             }, { transaction: t });
 
-            await t.commit();
+            await t.commit(); 
+
+
             res.status(201).json(booking);
         } else {
             await t.rollback();
