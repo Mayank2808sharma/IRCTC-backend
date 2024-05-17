@@ -7,15 +7,12 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
-  - type: textarea
-    id: What-happened?
-    attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
-    validations:
-      required: true
+- type: textarea
+      attributes:
+        label: "What happened?"
+        description: "A concise description of what you're experiencing."
+      validations:
+        required: true
   - type: checkboxes
       attributes:
         label: "Record"
