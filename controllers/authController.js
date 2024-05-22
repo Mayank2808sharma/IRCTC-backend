@@ -6,15 +6,35 @@ require('dotenv').config();
 
 const registerUser = async (req, res) => {
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const { username, password, role } = req.body
+
+        const usernameRegex = /^[0-9A-Za-z_]{6,16}$/
+        const PasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/
+
+        if (!username.match(usernameRegex)) {
+            return res.status(400).json({ error: "Invalid username. It must be 6-16 characters long, alphanumeric only." })
+        }
+
+        if (!password.match(PasswordRegex)) {
+            return res.status(400).json({ error: "Invalid password. It must be 8-32 characters long, include at least one lowercase letter, one uppercase letter, one number, and one special character." });
+        }
+
+        const existingUser = await User.findOne({ where: { username } });
+        if (existingUser) {
+            return res.status(400).json({ error: "This username is already registered." })
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
-            username: req.body.username,
+            username,
             password: hashedPassword,
-            role: req.body.role
+            role
         });
-        res.status(201).send('User registered');
+
+        res.status(201).json({ message: "User registered successfully." });
     } catch (error) {
-        res.status(500).send(error.message);
+        console.error("Error registering user:", error);
+        res.status(500).json({ error: "Internal server error." });
     }
 };
 
