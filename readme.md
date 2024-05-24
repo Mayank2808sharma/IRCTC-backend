@@ -1,11 +1,56 @@
+<div align="center">
+
 # IRCTC Backend
 
+</div>
+<div align = "center">
+<table align="center">
+    <thead align="center">
+        <tr border: 1px;>
+            <td><b>🌟 Stars</b></td>
+            <td><b>🍴 Forks</b></td>
+            <td><b>🐛 Issues</b></td>
+            <td><b>🔔 Open PRs</b></td>
+            <td><b>🔕 Close PRs</b></td>
+        </tr>
+     </thead>
+    <tbody>
+         <tr>
+            <td><img alt="Stars" src="https://img.shields.io/github/stars/Mayank2808sharma/IRCTC-backend?style=flat&logo=github"/></td>
+             <td><img alt="Forks" src="https://img.shields.io/github/forks/Mayank2808sharma/IRCTC-backend?style=flat&logo=github"/></td>
+            <td><img alt="Issues" src="https://img.shields.io/github/issues/Mayank2808sharma/IRCTC-backend?style=flat&logo=github"/></td>
+            <td><img alt="Open Pull Requests" src="https://img.shields.io/github/issues-pr/Mayank2808sharma/IRCTC-backend?style=flat&logo=github"/></td>
+           <td><img alt="Close Pull Requests" src="https://img.shields.io/github/issues-pr-closed/Mayank2808sharma/IRCTC-backend?style=flat&color=critical&logo=github"/></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
 ## Project Overview
-Built using Node.js, Express, and Sequelize, this system supports functionalities for both regular users and administrators, ensuring efficient handling of train schedules, seat availability, and user bookings.
+
+<div align="center">
+<i>Built using Node.js, Express, and Sequelize, this system supports functionalities for both regular users and administrators, ensuring efficient handling of train schedules, seat availability, and user bookings.</i>
+</div>
 
 ## Youtube video : [↗️](https://youtu.be/deWxKmGd67A)
 
-## Features
+<div align="center">
+
+<div align="center">
+
+## 💻 Tech Stacks
+
+![Node.js](https://img.shields.io/badge/Node.js-%23339933.svg?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-%23000000.svg?style=for-the-badge&logo=express&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-%23474A8A.svg?style=for-the-badge&logo=sequelize&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+
+</div>
+
+## -> Key Features <-
+</div>
+
 - **User Authentication**: Secure login and registration functionality for users.
 - **Train Management**: Administrators can add trains and update seating capacities.
 - **Seat Booking**: Users can check seat availability and book seats on trains.
@@ -75,3 +120,14 @@ This will start the server on `http://localhost:3000`.
 `Body: { "train_name": "Express", "source": "CityA", "destination": "CityB", "total_seats": 100 }`
 * **PATCH /admin/train/:trainId** - Increase number of total seats
 `Body: { "add_seats": 120 }`
+
+<h2 align = "center"> 🤝 Our Contributors</h2>
+<div align = "center">
+
+![Contributors](https://contrib.rocks/image?repo=Mayank2808sharma/IRCTC-backend)
+ 
+ <h3>Thank you for contributing to our repository</h3>
+
+</div>
+
+<h2 align="center">Don't forget to give us a ⭐</h2>
