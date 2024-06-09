@@ -4,6 +4,28 @@ const User = require('../models/user');
 
 require('dotenv').config();
 
+
+const changeUserPassword = async (req, res) => {
+  const { username, password, newPassword } = req.body;
+  try {
+    const user = await User.findOne({ where: { username } });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).send("Authentication failed");
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await User.update({ password: hashedNewPassword }, { where: { username } });
+
+    res.status(200).send("Password changed successfully");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+
+
+
 const registerUser = async (req, res) => {
     try {
         const { username, password, role } = req.body
@@ -52,4 +74,4 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser , changeUserPassword};
